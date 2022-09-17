@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Pinger</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <style>
+      .login {
+        max-width: 440px;
+        padding: 38px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        position: absolute;
+      }
+    </style>
+    
+
+  </head>
+  <body>
+    <noscript>
+      <h1>Please enable JavaScript, or this page will not work for you.</h1>
+    </noscript>
+    <div class="login">
+      <div class="row center-align">
+        <h5>Pinger</h5>
+        <h6>Add your url for pinging every second!</h6>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="url" name="url" type="text" class="validate">
+          <label for="url" id="label">URL</label>
+        </div>
+        <div class="input-field col s12">
+          <a id="submit" type="submit" value="Next" class="waves-effect waves-light btn">Next</a>
+        </div>
+      </div>
+    </div>
+    <script>
+      let submitBtn = document.getElementById("submit")
+
+      submitBtn.onclick = (e) => {
+        // Send Username data to server
+
+        fetch(`/add`, {
+          headers: {
+            "Content-Type": "application/json"
+          },
+          method: "PUT",
+          body: JSON.stringify({
+            url: document.getElementById("url").value
+          })
+        })
+        .then(res => res.json())
+        .then((res) => {
+          if (res.ok) {
+            document.querySelector("h5").innerHTML = `Added`
+          } else document.querySelector("h5").innerHTML = "Request didnt work: "+res.error
+          document.getElementById("url").style.display = "none"
+          document.getElementById("submit").style.display = "none"
+          document.getElementById("label").style.display = "none"
+        })
+      }
+    </script>
+  </body>
+</html>
