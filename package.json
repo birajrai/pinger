@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@replit/database": "2.0.2",
+    "@replit/database": "2.0.5",
     "express": "4.18.1",
     "node-fetch": "2.6.7"
   }
